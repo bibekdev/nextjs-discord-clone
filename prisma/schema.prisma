@@ -9,3 +9,30 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum MemberRole {
+  ADMIN
+  MODERATOR
+  GUEST
+}
+
+model User {
+  id       String @id @default(uuid())
+  fullName String
+  email    String @unique
+  password String
+  imageUrl String @default("https://res.cloudinary.com/bibekdev/image/upload/v1693670248/discord-avatar-512-UHPKI_kki5ft.png")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Server {
+  id         String @id @default(uuid())
+  name       String
+  imageUrl   String @db.Text
+  inviteCode String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
