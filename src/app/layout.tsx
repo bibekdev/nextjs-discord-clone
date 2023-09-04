@@ -2,6 +2,7 @@ import ReactQueryProvider from '@/providers/react-query'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
+import NextAuthProvider from '@/providers/session-provider'
 
 const font = Open_Sans({ subsets: ['latin'] })
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={font.className}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <NextAuthProvider>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </NextAuthProvider>
       </body>
     </html>
   )

@@ -22,7 +22,7 @@ import {
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 type PageProps = {}
 
@@ -33,6 +33,7 @@ const formSchema = z.object({
 
 const Page: React.FC<PageProps> = () => {
   const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
