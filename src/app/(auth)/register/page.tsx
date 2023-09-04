@@ -3,6 +3,8 @@
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -20,6 +22,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useMutation } from '@tanstack/react-query'
 
 type PageProps = {}
 
@@ -30,6 +33,7 @@ const formSchema = z.object({
 })
 
 const Page: React.FC<PageProps> = () => {
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,7 +43,22 @@ const Page: React.FC<PageProps> = () => {
     },
   })
 
-  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async values => {}
+  const registerMutation = useMutation({
+    mutationFn: async data => await axios.post('/api/auth/register', data),
+    mutationKey: ['registerUser'],
+    onSuccess: () => {
+      router.push('/login')
+    },
+    onError: (error: any) => {
+      console.log(error?.response?.data)
+    },
+  })
+
+  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async values => {
+    try {
+      registerMutation.mutateAsync(values)
+    } catch (error) {}
+  }
 
   return (
     <Card className='w-[500px] bg-[#313338]'>
