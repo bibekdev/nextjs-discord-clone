@@ -27,7 +27,7 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
       <button onClick={onClick} className='group relative flex items-center'>
         <div
           className={cn(
-            'absolute left-0 bg-primary rounded-r-full transition-all w-[4px]',
+            'absolute left-0 bg-white rounded-r-full transition-all w-[4px]',
             params?.serverId !== serverId && 'group-hover:h-[20px]',
             params?.serverId === serverId ? 'h-[36px]' : 'h-[8px]'
           )}

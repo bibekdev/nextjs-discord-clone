@@ -1,5 +1,5 @@
 import * as argon from 'argon2'
-import NextAuth, { AuthOptions, User } from 'next-auth'
+import NextAuth, { AuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { db } from '@/lib/db'
@@ -54,7 +54,7 @@ export const authOptions: AuthOptions = {
         where: { id: token.sub },
         select: { id: true, fullName: true, email: true, imageUrl: true },
       })
-      session.user = user as User
+      session.user = user as any
       return session
     },
   },

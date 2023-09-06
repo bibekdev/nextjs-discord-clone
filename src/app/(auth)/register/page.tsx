@@ -44,7 +44,11 @@ const Page: React.FC<PageProps> = () => {
   })
 
   const registerMutation = useMutation({
-    mutationFn: async data => await axios.post('/api/auth/register', data),
+    mutationFn: async (data: {
+      fullName: string
+      email: string
+      password: string
+    }) => await axios.post('/api/auth/register', data),
     mutationKey: ['registerUser'],
     onSuccess: () => {
       router.push('/login')
