@@ -44,9 +44,10 @@ const CreateServerModal = () => {
 
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async values => {
     try {
-      await axios.post('/api/servers', values)
+      const { data } = await axios.post('/api/servers', values)
       form.reset()
       router.refresh()
+      router.push(`/servers/${data.id}`)
       onClose()
     } catch (error) {
       console.log(error)
