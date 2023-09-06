@@ -9,7 +9,7 @@ const nextConfig = {
     return config
   },
   images: {
-    domains: ['uploadthing.com', 'res.cloudinary.com'],
+    domains: ['uploadthing.com', 'res.cloudinary.com', 'utfs.io'],
   },
 }
 

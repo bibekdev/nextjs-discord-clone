@@ -3,6 +3,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
 import NextAuthProvider from '@/providers/session-provider'
+import ModalProvider from '@/providers/modal-provider'
 
 const font = Open_Sans({ subsets: ['latin'] })
 
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang='en'>
       <body className={font.className}>
         <NextAuthProvider>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <ReactQueryProvider>
+            <ModalProvider />
+            {children}
+          </ReactQueryProvider>
         </NextAuthProvider>
       </body>
     </html>

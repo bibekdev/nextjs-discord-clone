@@ -1,5 +1,5 @@
 import * as argon from 'argon2'
-import NextAuth, { AuthOptions } from 'next-auth'
+import NextAuth, { AuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { db } from '@/lib/db'
@@ -46,8 +46,16 @@ export const authOptions: AuthOptions = {
     signIn: '/login',
   },
   callbacks: {
-    redirect: async ({ url, baseUrl }) => {
-      return url
+    async jwt({ token, user }) {
+      return { ...token, ...user }
+    },
+    async session({ session, token }) {
+      const user = await db.user.findUnique({
+        where: { id: token.sub },
+        select: { id: true, fullName: true, email: true, imageUrl: true },
+      })
+      session.user = user as User
+      return session
     },
   },
 }
