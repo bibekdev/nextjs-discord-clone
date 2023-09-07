@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import getSession from '@/lib/get-session'
 import { db } from '@/lib/db'
 
-export async function PATCH(
+export async function DELETE(
   _req: Request,
   { params }: { params: { serverId: string } }
 ) {
@@ -17,24 +17,10 @@ export async function PATCH(
       return new NextResponse('Server ID Missing', { status: 400 })
     }
 
-    const server = await db.server.update({
+    const server = await db.server.delete({
       where: {
         id: params.serverId,
-        userId: {
-          not: session.user.id,
-        },
-        members: {
-          some: {
-            userId: session.user.id,
-          },
-        },
-      },
-      data: {
-        members: {
-          deleteMany: {
-            userId: session.user.id,
-          },
-        },
+        userId: session.user.id,
       },
     })
     return NextResponse.json(server)
