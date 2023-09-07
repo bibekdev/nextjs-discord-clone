@@ -5,11 +5,21 @@ import { db } from '@/lib/db'
 import getSession from '@/lib/get-session'
 import ServerHeader from './server-header'
 import { ScrollArea } from '../ui/scroll-area'
-import { Hash, Mic, ShieldAlert, ShieldCheck, Video } from 'lucide-react'
+import {
+  Hash,
+  LogOut,
+  Mic,
+  ShieldAlert,
+  ShieldCheck,
+  Trash,
+  Video,
+} from 'lucide-react'
 import ServerSearch from './server-search'
 import { Separator } from '../ui/separator'
 import ServerSection from './server-section'
 import ServerChannel from './server-channel'
+import Image from 'next/image'
+import ServerUser from './server-user'
 
 type ServerSidebarProps = {
   serverId: string
@@ -135,7 +145,48 @@ const ServerSidebar: React.FC<ServerSidebarProps> = async ({ serverId }) => {
             </div>
           </div>
         )}
+        {!!audioChannels?.length && (
+          <div className='mb-2'>
+            <ServerSection
+              sectionType='channels'
+              channelType={ChannelType.AUDIO}
+              role={role}
+              label='Voice Channels'
+            />
+            <div className='space-y-[2px]'>
+              {audioChannels.map(channel => (
+                <ServerChannel
+                  key={channel.id}
+                  channel={channel}
+                  role={role}
+                  server={server}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        {!!videoChannels?.length && (
+          <div className='mb-2'>
+            <ServerSection
+              sectionType='channels'
+              channelType={ChannelType.VIDEO}
+              role={role}
+              label='Video Channels'
+            />
+            <div className='space-y-[2px]'>
+              {videoChannels.map(channel => (
+                <ServerChannel
+                  key={channel.id}
+                  channel={channel}
+                  role={role}
+                  server={server}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </ScrollArea>
+      <ServerUser />
     </div>
   )
 }
