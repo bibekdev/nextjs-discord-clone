@@ -72,7 +72,9 @@ const ServerHeader: React.FC<ServerHeaderProps> = ({ role, server }) => {
             <PlusCircle className='h-4 w-4 ml-auto' />
           </DropdownMenuItem>
         )}
-        <DropdownMenuSeparator className='w-[90%] mx-auto bg-zinc-600' />
+        {bothRole && (
+          <DropdownMenuSeparator className='w-[90%] mx-auto bg-zinc-600' />
+        )}
         {isAdmin && (
           <DropdownMenuItem
             onClick={() => onOpen('deleteServer', { server })}

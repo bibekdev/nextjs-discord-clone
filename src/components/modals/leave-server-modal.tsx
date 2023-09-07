@@ -21,7 +21,7 @@ const LeaveServerModal: React.FC<Props> = () => {
     isOpen,
     onClose,
     type,
-    data: { server, channel },
+    data: { server },
   } = useModal()
   const router = useRouter()
   const isModalOpen = isOpen && type === 'leaveServer'
@@ -31,13 +31,12 @@ const LeaveServerModal: React.FC<Props> = () => {
     try {
       setIsLoading(true)
       const url = qs.stringifyUrl({
-        url: `/api/channels/${channel?.id}`,
-        query: { serverId: server?.id },
+        url: `/api/servers/${server?.id}/leave`,
       })
-      await axios.delete(url)
+      await axios.patch(url)
       onClose()
       router.refresh()
-      router.push(`/servers/${server?.id}`)
+      router.push('/')
     } catch (error) {
       console.log(error)
       setIsLoading(false)
