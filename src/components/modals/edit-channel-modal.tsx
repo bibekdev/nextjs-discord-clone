@@ -5,13 +5,7 @@ import qs from 'query-string'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChannelType } from '@prisma/client'
 import { useModal } from '@/hooks/use-modal'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '../ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Input } from '../ui/input'
@@ -37,45 +31,44 @@ const formSchema = z.object({
   type: z.nativeEnum(ChannelType),
 })
 
-const CreateChannelModal = () => {
+const EditChannelModal = () => {
   const {
     isOpen,
     onClose,
     type,
-    data: { channelType },
+    data: { channelType, channel },
   } = useModal()
   const router = useRouter()
   const params = useParams()
 
-  const isModalOpen = isOpen && type === 'createChannel'
+  const isModalOpen = isOpen && type === 'editChannel'
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      type: channelType || ChannelType.TEXT,
+      name: channel?.name,
+      type: channel?.type,
     },
   })
 
   useEffect(() => {
-    if (channelType) {
-      form.setValue('type', channelType)
-    } else {
-      form.setValue('type', ChannelType.TEXT)
+    if (channel) {
+      form.setValue('name', channel.name)
+      form.setValue('type', channel.type)
     }
-  }, [])
+  }, [form, channel])
 
   const isLoading = form.formState.isSubmitting
 
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async values => {
     try {
       const url = qs.stringifyUrl({
-        url: '/api/channels',
+        url: `/api/channels/${channel?.id}`,
         query: {
           serverId: params?.serverId,
         },
       })
-      await axios.post(url, values)
+      await axios.patch(url, values)
       form.reset()
       router.refresh()
       onClose()
@@ -94,12 +87,8 @@ const CreateChannelModal = () => {
       <DialogContent className=''>
         <DialogHeader className='pt-8'>
           <DialogTitle className='text-center text-xl font-bold'>
-            Create a new channel
+            Edit Channel
           </DialogTitle>
-          <DialogDescription className='text-center'>
-            Your channel is where you and your friends talk about topic. Make
-            yours and start talking.
-          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -160,4 +149,4 @@ const CreateChannelModal = () => {
     </Dialog>
   )
 }
-export default CreateChannelModal
+export default EditChannelModal

@@ -83,7 +83,7 @@ const ServerHeader: React.FC<ServerHeaderProps> = ({ role, server }) => {
         )}
         {!isAdmin && (
           <DropdownMenuItem
-            onClick={() => onOpen('editServer', { server })}
+            onClick={() => onOpen('leaveServer', { server })}
             className='focus:bg-red-500 focus:text-white transition px-3 py-2 cursor-pointer'>
             Leave Server
             <LogOut className='h-4 w-4 ml-auto' />

@@ -1,9 +1,13 @@
 'use client'
 
-import CreateChannelModal from '@/components/modals/create-channel-modal'
-import CreateServerModal from '@/components/modals/create-server-modal'
-import DeleteChannelModal from '@/components/modals/delete-channel-modal'
-import InvitePeople from '@/components/modals/invite-people'
+import {
+  CreateChannelModal,
+  CreateServerModal,
+  DeleteChannelModal,
+  EditChannelModal,
+  InvitePeople,
+  LeaveServerModal,
+} from '@/components/modals'
 
 const ModalProvider = () => {
   return (
@@ -12,6 +16,8 @@ const ModalProvider = () => {
       <InvitePeople />
       <CreateChannelModal />
       <DeleteChannelModal />
+      <EditChannelModal />
+      <LeaveServerModal />
     </>
   )
 }
