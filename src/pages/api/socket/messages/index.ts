@@ -1,7 +1,7 @@
 import { db } from '@/lib/db'
+import { serverAuth } from '@/lib/get-session-pages'
 import { NextApiResponseServerIO } from '@/types'
 import { NextApiRequest } from 'next'
-import { getServerSession } from 'next-auth'
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,7 +12,7 @@ export default async function handler(
   }
 
   try {
-    const session = await getServerSession()
+    const session = await serverAuth(req, res)
     const { content, fileUrl } = req.body
     const { serverId, channelId } = req.query
 

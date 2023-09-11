@@ -2,6 +2,7 @@ import { Hash } from 'lucide-react'
 import React from 'react'
 import MobileToggle from '../common/mobile-toggle'
 import { UserAvatar } from '../common/user-avatar'
+import { SocketIndicator } from '../common/socket-provider'
 
 type ChatHeaderProps = {
   serverId: string
@@ -25,6 +26,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
         <UserAvatar src={imageUrl} className='h-8 w-8 md:h-8 md:w-8 mr-2' />
       )}
       <p className='font-semibold text-md text-white'>{name}</p>
+      <SocketIndicator />
     </div>
   )
 }

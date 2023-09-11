@@ -1,12 +1,15 @@
 'use client'
 
 import * as z from 'zod'
+import qs from 'query-string'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem } from '../ui/form'
 import { Plus } from 'lucide-react'
 import { Input } from '../ui/input'
 import EmojiPicker from '../common/emoji-picker'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 type ChatInputProps = {
   apiUrl: string
@@ -20,6 +23,7 @@ const formSchema = z.object({
 })
 
 const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, query, name, type }) => {
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,9 +33,23 @@ const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, query, name, type }) => {
 
   const isLoading = form.formState.isSubmitting
 
+  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async values => {
+    try {
+      const url = qs.stringifyUrl({
+        url: apiUrl,
+        query,
+      })
+      await axios.post(url, values)
+      form.reset()
+      router.refresh()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Form {...form}>
-      <form>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name='content'

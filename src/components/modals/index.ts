@@ -6,6 +6,7 @@ import InvitePeople from './invite-people'
 import LeaveServerModal from './leave-server-modal'
 import DeleteServerModal from './delete-server-modal'
 import EditServerModal from './edit-server-modal'
+import DeleteMessagModal from './delete-message-modal'
 
 export {
   CreateChannelModal,
@@ -16,4 +17,5 @@ export {
   LeaveServerModal,
   DeleteServerModal,
   EditServerModal,
+  DeleteMessagModal,
 }
