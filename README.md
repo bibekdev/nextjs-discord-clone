@@ -1,34 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Discord Clone on Next.js 13
 
-## Getting Started
+This is a discord clone made in Next.js 13 as a fullstack framework, websockets for realtime connection, prisma as ORM, postgres as database and next-auth for handling authentication. Tailwind css and shadcn components are used to power the style of the app.
 
-First, run the development server:
+## Authors
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- [@bibekdev](https://www.github.com/bibekdev)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Screenshots
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![App Screenshot](/screenshots/1.png)
+![App Screenshot](/screenshots/2.png)
+![App Screenshot](/screenshots/3.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Features
 
-## Learn More
+- CRUD operation for Server
+- Authentication / Authorization
+- Responsive design
+- CRUD operation on channels
+- Realtime connection with websockets
+- React query for infinte fetching of the messages
+- Channels chat
+- Delete and update your messages
 
-To learn more about Next.js, take a look at the following resources:
+## Tech stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Next.js 13
+- Prisma
+- Tanstack React query
+- Tailwind CSS
+- Shadcn-ui
+- Next-auth
+- Postgres SQL
